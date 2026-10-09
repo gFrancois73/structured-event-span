@@ -23,3 +23,10 @@ The problem is narrow: instrument code with nested timings and metadata, then ha
 ## The awkward edge
 
 A span must end before its parent ends, and spans must end in the reverse of the order they started. Ending a parent while a child is still open, or ending spans out of order, raises `ValueError` rather than silently producing nonsensical timings. If your control flow raises inside a nested `with rec.open(...)` block, Python's `__exit__` chain still runs in the correct order, so the normal case is fine; the error only appears on actual misuse such as explicitly calling `.end()` out of order.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
