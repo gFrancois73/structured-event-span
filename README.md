@@ -41,3 +41,8 @@ buffer is cheap enough that the drift is not worth the speed.
 Values are coerced to floats, so very large integers lose precision. If you need
 exact integer aggregates over a window, this is the wrong tool.
 
+## Contributing
+
+Issues and pull requests are welcome. Please keep the dependency list empty —
+that constraint is the point of the project, not an oversight.
+
